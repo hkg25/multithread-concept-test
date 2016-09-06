@@ -31,7 +31,7 @@ public class CyclicBarrierExample {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
 
         //creating CyclicBarrier with 3 parties i.e. 3 Threads needs to call await()
         final CyclicBarrier cb = new CyclicBarrier(3, new Runnable(){
@@ -42,7 +42,6 @@ public class CyclicBarrierExample {
             }
         });
 
-
         //starting each of thread
         Thread t1 = new Thread(new Task(cb), "Thread 1");
         Thread t2 = new Thread(new Task(cb), "Thread 2");
@@ -51,8 +50,19 @@ public class CyclicBarrierExample {
         t1.start();
         t2.start();
         t3.start();
+        
+        t1.join();
+        t2.join();
+        t3.join();
       
+        cb.reset();
         
+        Thread t4 = new Thread(new Task(cb), "Thread 4");
+        Thread t5 = new Thread(new Task(cb), "Thread 5");
+        Thread t6 = new Thread(new Task(cb), "Thread 6");
         
+        t4.start();
+        t5.start();
+        t6.start();
     }
 }

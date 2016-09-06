@@ -6,7 +6,7 @@ public class Waiter implements Runnable {
 
 	public Waiter(Message m) throws CloneNotSupportedException {
 		this.msg = m;
-		this.clone();
+		//this.clone();
 	}
 
 	@Override
